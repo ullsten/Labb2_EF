@@ -4,6 +4,7 @@ using Labb2_EF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb2_EF.Data.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230422221634_NullAge")]
+    partial class NullAge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,6 +81,9 @@ namespace Labb2_EF.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(35)
@@ -89,10 +95,13 @@ namespace Labb2_EF.Data.Migrations
                     b.Property<int>("FK_AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PersonalNumber")
+                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SSN")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentFirstName")
@@ -118,10 +127,6 @@ namespace Labb2_EF.Data.Migrations
 
                     b.Property<DateTime>("DateOfHire")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PersonalNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherFirstName")
                         .IsRequired()

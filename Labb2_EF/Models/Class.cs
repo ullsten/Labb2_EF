@@ -10,17 +10,17 @@ namespace Labb2_EF.Models
         public Guid ClassId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(20)]
         [DisplayName("Class")]
         public string ClassName { get; set; }
 
         [ForeignKey("Students")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student>? Students { get; set; }
 
         [ForeignKey("Teachers")]
-        public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<Teacher>? Teachers { get; set; }
 
         [ForeignKey("Courses")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Course>? Courses { get; set; }
     }
 }

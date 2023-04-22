@@ -10,7 +10,7 @@ namespace Labb2_EF.Models
 
         [StringLength(50)]
         [DisplayName("Course")]
-        public string Title { get; set; }
+        public string CourseName { get; set; }
 
         [StringLength(50)]
         public string ?CourseDescription { get; set; }
