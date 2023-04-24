@@ -24,5 +24,46 @@ body {
 .home{
     margin-top: 2em;
     height: 70vh;
-    background-image:url(/images/school_stuff.webp);
+    background-image:url(/images/success.jpg);
+    background-size:cover;
 }
+.Example-btn7 {
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    font-size: 14px;
+    color: #fff;
+    background-color: #361f53;
+    padding: 10px 30px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    border-radius: 50px;
+    transition: 1000ms;
+    transform: translateY(0);
+    text-decoration: none;
+}
+
+    .Example-btn7:hover {
+        transition: 1000ms;
+        padding: 10px 50px;
+        transform: translateY(-0px);
+        background-color: #708a06;
+        color: #000000;
+        border: none;
+    }
+    .navbar{
+        background-image:url(/images/globe.webp);
+        background-size: cover;
+        
+    }
+    /*    .navbar:hover {
+            transition: 1000ms;
+            padding: 10px 50px;
+            transform: translateY(-0px);
+            background-color: #708a06;
+            color: #000000;
+            border: none;
+        }*/
+       /* .navbar-brand{
+            background-image: url(/images/globe.webp);
+        }*/
+ 

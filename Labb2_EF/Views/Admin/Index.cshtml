@@ -2,22 +2,20 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="text-center">
 <h1>Enrollment</h1>
 <h3>Choose what to enter into Lab1_EF AB</h3>
 
-<div>
+<div class="mt-4">
     <a class="btn btn-primary" asp-area="" asp-controller="Students" asp-action="Create">Add student</a>
     <a class="btn btn-primary" asp-area="" asp-controller="Teachers" asp-action="Create">Add teacher</a>
     <a class="btn btn-primary" asp-area="" asp-controller="Courses" asp-action="Create">Add course</a>
     <a class="btn btn-primary" asp-area="" asp-controller="Classes" asp-action="Create">Add class</a>
-    <hr/>
+
     <div class="mt-2">
         <a class="btn btn-primary" asp-area="" asp-controller="TeacherCourses" asp-action="Index">Assign teachers</a>
          <a class="btn btn-primary" asp-area="" asp-controller="Enrollments" asp-action="Index">Assign student</a>
         <a class="btn btn-primary" asp-area="" asp-controller="Addresses" asp-action="Index">Assign address</a>
     </div>
-    <hr/>
-   
-     
+</div>
 </div>
