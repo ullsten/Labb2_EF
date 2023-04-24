@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Labb2_EF.Models.JoinModels.Enrollment>
+
+@{
+    ViewData["Title"] = "GetStudentTeachersCourse";
+}
+<h2>Select course from list</h2>
+<p>You will see students and teachers for selected course.</p>
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                @Html.DropDownList("selectedCourse", ViewBag.FK_CourseId as SelectList, "select course", new { @class = "form-control", onchange = "this.form.submit();" })
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+<br />
+@if (Model == null)
+{
+    <p>Please select a course to see the teacher.</p>
+}
+else
+{
+    <h3>Search Results</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(Model => Model.Students.StudentFullName)</th>
+                <th>@Html.DisplayNameFor(Model => Model.Teachers.TeacherFullName)</th>
+                <th>@Html.DisplayNameFor(Model => Model.Courses.CourseName)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Students.StudentFullName</td>
+                    <td>@item.Teachers.TeacherFullName</td>
+                    <td>@item.Courses.CourseName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -49,19 +49,24 @@ namespace Labb2_EF.Controllers
             return View(await studentsTeachers.ToListAsync());
         }
 
-        //get all students in selected course
-        public async Task<IActionResult> GetStudentCourse(string selectedCourse)
+        //get all students in selected course with teacher and course
+        public async Task<IActionResult> GetStudentTeachersCourse(string selectedCourse)
         {
-            ViewBag.FK_StudentId = new SelectList(_context.Courses, "CourseName", "CourseName");
-            var studentsTeachersCourse = _context.StudentTeachersCourses
-                .Include(sc => sc.Students)
-                .Include(sc => sc.Courses)
-                .Include(sc => sc.Teachers)
-                .Where(sc => sc.Courses.CourseName == selectedCourse);
+            var courses = await _context.Courses.ToListAsync();
+            ViewBag.FK_CourseId = new SelectList(courses, "CourseName", "CourseName", selectedCourse);
 
-            return View(await studentsTeachersCourse.ToListAsync());
-                
+            var studentsTeachers = _context.Enrollments
+                .Include(e => e.Students)
+                .Include(e => e.Teachers)
+                .Include(e => e.Courses)
+                .Where(e => e.Courses.CourseName == selectedCourse);
+
+            return View(await studentsTeachers.ToListAsync());
         }
+
+
+
+
         //edit course name to something else
         //Update students teacher in course
     }
