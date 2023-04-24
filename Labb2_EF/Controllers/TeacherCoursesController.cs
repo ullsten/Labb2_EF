@@ -28,29 +28,6 @@ namespace Labb2_EF.Controllers
             return View(await schoolDbContext.ToListAsync());
         }
 
-        //Search for course and get teacher
-        public async Task<IActionResult> GetTeacherCourse(string searchCourse)
-        {
-            ViewBag.FK_CourseId = new SelectList(_context.Courses, "CourseName", "CourseName");
-
-            var schoolDbContext = _context.TeacherCourses
-                .Include(t => t.Courses)
-                .Include(t => t.Teachers)
-                .Where(t => t.Courses.CourseName == searchCourse);
-
-            return View(await schoolDbContext.ToListAsync());
-        }
-
-        public async Task<IActionResult> GetAllTeacherStudents()
-        {
-            var schoolDbContext = _context.TeacherCourses
-                .Include(t => t.Courses)
-                .Include(t => t.Teachers);
-
-            return View(await schoolDbContext.ToListAsync());
-        }
-
-
         // GET: TeacherCourses/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {

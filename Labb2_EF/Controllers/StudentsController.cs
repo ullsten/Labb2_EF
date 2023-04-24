@@ -22,9 +22,12 @@ namespace Labb2_EF.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-              return _context.Students != null ? 
-                          View(await _context.Students.ToListAsync()) :
-                          Problem("Entity set 'SchoolDbContext.Student'  is null.");
+            //return _context.Students != null ? 
+            //              View(await _context.Students.ToListAsync()) :
+            //              Problem("Entity set 'SchoolDbContext.Student'  is null.");
+
+            var students = await _context.Students.Include(s => s.Addresses).ToListAsync();
+            return View(students);
         }
 
         // GET: Students/Details/5

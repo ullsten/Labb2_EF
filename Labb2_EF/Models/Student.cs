@@ -78,9 +78,10 @@ namespace Labb2_EF.Models
         [DisplayName("Enrollment date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnrollmentDate { get; set; }
-        [ForeignKey("Addresses")]
-        public int FK_AddressId { get; set; }
 
+
+        public int FK_AddressId { get; set; }
+        public virtual Address? Addresses { get; set; }
         public virtual ICollection<Teacher>? Teachers { get; set; }
         public virtual ICollection<Course>? Courses { get; set; }
     }
