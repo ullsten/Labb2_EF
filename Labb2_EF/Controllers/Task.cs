@@ -40,9 +40,9 @@ namespace Labb2_EF.Controllers
         //get all students with teachers
         public async Task<IActionResult> GetAllStudentsTeachers()
         {
-            var studentsTeachers = _context.StudentsTeachers
-                .Include(s => s.Students)
-                .Include(t => t.Teachers);
+            var studentsTeachers = _context.Enrollments
+                .Include(st => st.Students)
+                .Include(st => st.Teachers);
 
             return View(await studentsTeachers.ToListAsync());
         }

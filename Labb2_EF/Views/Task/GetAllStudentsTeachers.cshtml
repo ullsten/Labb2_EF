@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Labb2_EF.Models.JoinModels.StudentsTeachers>
+﻿@model IEnumerable<Labb2_EF.Models.JoinModels.Enrollment>
 
 @{
     ViewData["Title"] = "GetAllStudentsTeachers";
@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Students)
+                @Html.DisplayNameFor(model => model.Students.StudentFullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teachers)
+                @Html.DisplayNameFor(model => model.Teachers.TeacherFullName)
             </th>
             <th></th>
         </tr>
@@ -29,11 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Teachers.TeacherFullName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentsTeachersId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentsTeachersId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentsTeachersId">Delete</a>
             </td>
         </tr>
 }

@@ -20,5 +20,6 @@ namespace Labb2_EF.Data
 
         public DbSet<Labb2_EF.Models.JoinModels.TeacherCourse> TeacherCourses { get; set; } = default!;
         public DbSet<Labb2_EF.Models.JoinModels.StudentsTeachers> StudentsTeachers { get; set; } = default!;
+        public DbSet<Labb2_EF.Models.JoinModels.StudentCourse> StudentCourse { get; set; } = default!;
     }
 }
