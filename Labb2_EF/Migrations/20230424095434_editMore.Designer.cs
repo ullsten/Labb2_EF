@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb2_EF.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20230424080743_CourseStudent")]
-    partial class CourseStudent
+    [Migration("20230424095434_editMore")]
+    partial class editMore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,9 @@ namespace Labb2_EF.Migrations
                     b.Property<Guid>("FK_TeacherId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("EnrollmentId");
 
                     b.HasIndex("FK_ClassId");
@@ -177,7 +180,7 @@ namespace Labb2_EF.Migrations
 
                     b.HasIndex("FK_StudentId");
 
-                    b.HasIndex("FK_TeacherId");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Enrollments");
                 });
@@ -204,27 +207,6 @@ namespace Labb2_EF.Migrations
                     b.HasIndex("FK_StudentId");
 
                     b.ToTable("StudentCourse");
-                });
-
-            modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentsTeachers", b =>
-                {
-                    b.Property<Guid>("StudentsTeachersId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_TeacherId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentsTeachersId");
-
-                    b.HasIndex("FK_StudentId");
-
-                    b.HasIndex("FK_TeacherId");
-
-                    b.ToTable("StudentsTeachers");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.TeacherCourse", b =>
@@ -329,6 +311,29 @@ namespace Labb2_EF.Migrations
                     b.HasIndex("AddressesAddressId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("Labb2_EF.Models.ViewModels.StudentsTeachers", b =>
+                {
+                    b.Property<Guid>("StudentsTeachersId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StudentFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TeacherFullname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("StudentsTeachersId");
+
+                    b.ToTable("StudentsTeachers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -628,11 +633,9 @@ namespace Labb2_EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Labb2_EF.Models.Teacher", "Teachers")
+                    b.HasOne("Labb2_EF.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("FK_TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Classes");
 
@@ -640,7 +643,7 @@ namespace Labb2_EF.Migrations
 
                     b.Navigation("Students");
 
-                    b.Navigation("Teachers");
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentCourse", b =>
@@ -660,25 +663,6 @@ namespace Labb2_EF.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentsTeachers", b =>
-                {
-                    b.HasOne("Labb2_EF.Models.Student", "Students")
-                        .WithMany()
-                        .HasForeignKey("FK_StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Labb2_EF.Models.Teacher", "Teachers")
-                        .WithMany()
-                        .HasForeignKey("FK_TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Students");
-
-                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.TeacherCourse", b =>

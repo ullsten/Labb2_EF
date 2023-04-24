@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Labb2_EF.Models;
 using Labb2_EF.Models.JoinModels;
+using Labb2_EF.Models.ViewModels;
 
 namespace Labb2_EF.Data
 {
@@ -19,7 +20,7 @@ namespace Labb2_EF.Data
         public DbSet<Address> Addresses { get; set; } 
 
         public DbSet<Labb2_EF.Models.JoinModels.TeacherCourse> TeacherCourses { get; set; } = default!;
-        public DbSet<Labb2_EF.Models.JoinModels.StudentsTeachers> StudentsTeachers { get; set; } = default!;
+        public DbSet<StudentsTeachers> StudentsTeachers { get; set; } = default!;
         public DbSet<Labb2_EF.Models.JoinModels.StudentCourse> StudentCourse { get; set; } = default!;
     }
 }

@@ -154,16 +154,19 @@ namespace Labb2_EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_ClassId")
+                    b.Property<Guid?>("FK_ClassId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_CourseId")
+                    b.Property<Guid?>("FK_CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_StudentId")
+                    b.Property<Guid?>("FK_StudentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_TeacherId")
+                    b.Property<Guid?>("FK_TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TeacherId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("EnrollmentId");
@@ -174,7 +177,7 @@ namespace Labb2_EF.Migrations
 
                     b.HasIndex("FK_StudentId");
 
-                    b.HasIndex("FK_TeacherId");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Enrollments");
                 });
@@ -201,27 +204,6 @@ namespace Labb2_EF.Migrations
                     b.HasIndex("FK_StudentId");
 
                     b.ToTable("StudentCourse");
-                });
-
-            modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentsTeachers", b =>
-                {
-                    b.Property<Guid>("StudentsTeachersId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_TeacherId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentsTeachersId");
-
-                    b.HasIndex("FK_StudentId");
-
-                    b.HasIndex("FK_TeacherId");
-
-                    b.ToTable("StudentsTeachers");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.TeacherCourse", b =>
@@ -326,6 +308,29 @@ namespace Labb2_EF.Migrations
                     b.HasIndex("AddressesAddressId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("Labb2_EF.Models.ViewModels.StudentsTeachers", b =>
+                {
+                    b.Property<Guid>("StudentsTeachersId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StudentFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TeacherFullname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("StudentsTeachersId");
+
+                    b.ToTable("StudentsTeachers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -609,27 +614,19 @@ namespace Labb2_EF.Migrations
                 {
                     b.HasOne("Labb2_EF.Models.Class", "Classes")
                         .WithMany()
-                        .HasForeignKey("FK_ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FK_ClassId");
 
                     b.HasOne("Labb2_EF.Models.Course", "Courses")
                         .WithMany()
-                        .HasForeignKey("FK_CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FK_CourseId");
 
                     b.HasOne("Labb2_EF.Models.Student", "Students")
                         .WithMany()
-                        .HasForeignKey("FK_StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FK_StudentId");
 
-                    b.HasOne("Labb2_EF.Models.Teacher", "Teachers")
+                    b.HasOne("Labb2_EF.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("FK_TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Classes");
 
@@ -637,7 +634,7 @@ namespace Labb2_EF.Migrations
 
                     b.Navigation("Students");
 
-                    b.Navigation("Teachers");
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentCourse", b =>
@@ -657,25 +654,6 @@ namespace Labb2_EF.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("Labb2_EF.Models.JoinModels.StudentsTeachers", b =>
-                {
-                    b.HasOne("Labb2_EF.Models.Student", "Students")
-                        .WithMany()
-                        .HasForeignKey("FK_StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Labb2_EF.Models.Teacher", "Teachers")
-                        .WithMany()
-                        .HasForeignKey("FK_TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Students");
-
-                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.TeacherCourse", b =>

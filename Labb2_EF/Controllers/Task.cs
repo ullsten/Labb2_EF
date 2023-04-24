@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Labb2_EF.Data;
 using Labb2_EF.Models;
 using Labb2_EF.Models.JoinModels;
+using Labb2_EF.Models.ViewModels;
 
 namespace Labb2_EF.Controllers
 {
@@ -40,11 +41,28 @@ namespace Labb2_EF.Controllers
         //get all students with teachers
         public async Task<IActionResult> GetAllStudentsTeachers()
         {
-            var studentsTeachers = _context.Enrollments
-                .Include(st => st.Students)
-                .Include(st => st.Teachers);
+            //var studentsTeachers = _context.Enrollments
+            //    .Include(t => _context.Teachers)
+            //    .Include(t => t.Students);
 
-            return View(await studentsTeachers.ToListAsync());
+            //return View(await studentsTeachers.ToListAsync());
+
+            var teachers = await _context.Teachers.ToListAsync();
+            var students = await _context.Students.ToListAsync();
+            var enrollment = await _context.Enrollments.ToListAsync();
+
+            var result = from t in teachers
+                         join e in enrollment on t.TeacherId equals e.FK_TeacherId
+                         join s in students on e.FK_StudentId equals s.StudentId
+                         select new StudentsTeachers
+                         {
+                             StudentId = s.StudentId,
+                             StudentFullName = s.StudentFullName,
+                             TeacherId = t.TeacherId,
+                             TeacherFullname = t.TeacherFullName,
+                         };
+
+            return View(result);
         }
     }
 }

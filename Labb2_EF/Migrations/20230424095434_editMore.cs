@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Labb2_EF.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class editMore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
                     AddressId = table.Column<int>(type: "int", nullable: false)
@@ -23,7 +23,7 @@ namespace Labb2_EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.AddressId);
+                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +92,21 @@ namespace Labb2_EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudentsTeachers",
+                columns: table => new
+                {
+                    StudentsTeachersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherFullname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentsTeachers", x => x.StudentsTeachersId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teachers",
                 columns: table => new
                 {
@@ -107,9 +122,9 @@ namespace Labb2_EF.Migrations
                 {
                     table.PrimaryKey("PK_Teachers", x => x.TeacherId);
                     table.ForeignKey(
-                        name: "FK_Teachers_Address_AddressesAddressId",
+                        name: "FK_Teachers_Addresses_AddressesAddressId",
                         column: x => x.AddressesAddressId,
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "AddressId");
                 });
 
@@ -231,17 +246,17 @@ namespace Labb2_EF.Migrations
                     Email = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
                     EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FK_AddressId = table.Column<int>(type: "int", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
                     ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.StudentId);
                     table.ForeignKey(
-                        name: "FK_Students_Address_FK_AddressId",
-                        column: x => x.FK_AddressId,
-                        principalTable: "Address",
-                        principalColumn: "AddressId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Students_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId");
                     table.ForeignKey(
                         name: "FK_Students_Classes_ClassId",
                         column: x => x.ClassId,
@@ -377,6 +392,7 @@ namespace Labb2_EF.Migrations
                     EnrollmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     FK_CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -402,35 +418,35 @@ namespace Labb2_EF.Migrations
                         principalColumn: "StudentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Enrollments_Teachers_FK_TeacherId",
-                        column: x => x.FK_TeacherId,
+                        name: "FK_Enrollments_Teachers_TeacherId",
+                        column: x => x.TeacherId,
                         principalTable: "Teachers",
-                        principalColumn: "TeacherId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TeacherId");
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentsTeachers",
+                name: "StudentCourse",
                 columns: table => new
                 {
-                    StudentsTeachersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FK_TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FK_CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentsTeachers", x => x.StudentsTeachersId);
+                    table.PrimaryKey("PK_StudentCourse", x => x.StudentCourseId);
                     table.ForeignKey(
-                        name: "FK_StudentsTeachers_Students_FK_StudentId",
+                        name: "FK_StudentCourse_Courses_FK_CourseId",
+                        column: x => x.FK_CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentCourse_Students_FK_StudentId",
                         column: x => x.FK_StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StudentsTeachers_Teachers_FK_TeacherId",
-                        column: x => x.FK_TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "TeacherId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -533,29 +549,29 @@ namespace Labb2_EF.Migrations
                 column: "FK_StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_FK_TeacherId",
+                name: "IX_Enrollments_TeacherId",
                 table: "Enrollments",
-                column: "FK_TeacherId");
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentCourse_FK_CourseId",
+                table: "StudentCourse",
+                column: "FK_CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentCourse_FK_StudentId",
+                table: "StudentCourse",
+                column: "FK_StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_AddressId",
+                table: "Students",
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_ClassId",
                 table: "Students",
                 column: "ClassId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Students_FK_AddressId",
-                table: "Students",
-                column: "FK_AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentsTeachers_FK_StudentId",
-                table: "StudentsTeachers",
-                column: "FK_StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentsTeachers_FK_TeacherId",
-                table: "StudentsTeachers",
-                column: "FK_TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTeacher_TeachersTeacherId",
@@ -612,6 +628,9 @@ namespace Labb2_EF.Migrations
                 name: "Enrollments");
 
             migrationBuilder.DropTable(
+                name: "StudentCourse");
+
+            migrationBuilder.DropTable(
                 name: "StudentsTeachers");
 
             migrationBuilder.DropTable(
@@ -639,7 +658,7 @@ namespace Labb2_EF.Migrations
                 name: "Classes");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Addresses");
         }
     }
 }

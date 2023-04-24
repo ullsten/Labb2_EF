@@ -22,11 +22,7 @@ namespace Labb2_EF.Controllers
         // GET: Enrollments
         public async Task<IActionResult> Index()
         {
-            var schoolDbContext = _context.Enrollments
-                .Include(e => e.Classes)
-                .Include(e => e.Courses)
-                .Include(e => e.Students)
-                .Include(e => e.Teachers);
+            var schoolDbContext = _context.Enrollments.Include(e => e.Classes).Include(e => e.Courses).Include(e => e.Students).Include(e => e.Teachers);
             return View(await schoolDbContext.ToListAsync());
         }
 
@@ -154,7 +150,6 @@ namespace Labb2_EF.Controllers
                 .Include(e => e.Classes)
                 .Include(e => e.Courses)
                 .Include(e => e.Students)
-                .Include(e => e.Teachers)
                 .FirstOrDefaultAsync(m => m.EnrollmentId == id);
             if (enrollment == null)
             {
