@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Labb2_EF.Models.JoinModels.TeacherCourse>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Assign teacher to course</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Teachers.TeacherFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teachers.DateOfHire)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teachers.TeacherFullName)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courses.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teachers.DateOfHire)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TeacherCourseId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TeacherCourseId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TeacherCourseId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -19,13 +19,10 @@
                 @Html.DisplayNameFor(model => model.StudentLastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PersonalNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
@@ -52,14 +49,11 @@
                 @Html.DisplayFor(modelItem => item.StudentLastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Age)
+                @Html.DisplayFor(modelItem => item.PersonalNumber)
             </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.PersonalNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>

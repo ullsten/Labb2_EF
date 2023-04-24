@@ -10,88 +10,88 @@ using Labb2_EF.Models;
 
 namespace Labb2_EF.Controllers
 {
-    public class TeachersController : Controller
+    public class CoursesController : Controller
     {
         private readonly SchoolDbContext _context;
 
-        public TeachersController(SchoolDbContext context)
+        public CoursesController(SchoolDbContext context)
         {
             _context = context;
         }
 
-        // GET: Teachers
+        // GET: Courses
         public async Task<IActionResult> Index()
         {
-              return _context.Teachers != null ? 
-                          View(await _context.Teachers.ToListAsync()) :
-                          Problem("Entity set 'SchoolDbContext.Teacher'  is null.");
+              return _context.Courses != null ? 
+                          View(await _context.Courses.ToListAsync()) :
+                          Problem("Entity set 'SchoolDbContext.Course'  is null.");
         }
 
-        // GET: Teachers/Details/5
+        // GET: Courses/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Teachers == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .FirstOrDefaultAsync(m => m.TeacherId == id);
-            if (teacher == null)
+            var course = await _context.Courses
+                .FirstOrDefaultAsync(m => m.CourseId == id);
+            if (course == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            return View(course);
         }
 
-        // GET: Teachers/Create
+        // GET: Courses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Teachers/Create
+        // POST: Courses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeacherId,TeacherFirstName,TeacherLastName,DateOfHire,PersonalNumber")] Teacher teacher)
+        public async Task<IActionResult> Create([Bind("CourseId,CourseName,CourseDescription")] Course course)
         {
             if (ModelState.IsValid)
             {
-                teacher.TeacherId = Guid.NewGuid();
-                _context.Add(teacher);
+                course.CourseId = Guid.NewGuid();
+                _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(teacher);
+            return View(course);
         }
 
-        // GET: Teachers/Edit/5
+        // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Teachers == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
             {
                 return NotFound();
             }
-            return View(teacher);
+            return View(course);
         }
 
-        // POST: Teachers/Edit/5
+        // POST: Courses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("TeacherId,TeacherFirstName,TeacherLastName,DateOfHire,PersonalNumber")] Teacher teacher)
+        public async Task<IActionResult> Edit(Guid id, [Bind("CourseId,CourseName,CourseDescription")] Course course)
         {
-            if (id != teacher.TeacherId)
+            if (id != course.CourseId)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace Labb2_EF.Controllers
             {
                 try
                 {
-                    _context.Update(teacher);
+                    _context.Update(course);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeacherExists(teacher.TeacherId))
+                    if (!CourseExists(course.CourseId))
                     {
                         return NotFound();
                     }
@@ -116,49 +116,49 @@ namespace Labb2_EF.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(teacher);
+            return View(course);
         }
 
-        // GET: Teachers/Delete/5
+        // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Teachers == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .FirstOrDefaultAsync(m => m.TeacherId == id);
-            if (teacher == null)
+            var course = await _context.Courses
+                .FirstOrDefaultAsync(m => m.CourseId == id);
+            if (course == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            return View(course);
         }
 
-        // POST: Teachers/Delete/5
+        // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Teachers == null)
+            if (_context.Courses == null)
             {
-                return Problem("Entity set 'SchoolDbContext.Teacher'  is null.");
+                return Problem("Entity set 'SchoolDbContext.Course'  is null.");
             }
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher != null)
+            var course = await _context.Courses.FindAsync(id);
+            if (course != null)
             {
-                _context.Teachers.Remove(teacher);
+                _context.Courses.Remove(course);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TeacherExists(Guid id)
+        private bool CourseExists(Guid id)
         {
-          return (_context.Teachers?.Any(e => e.TeacherId == id)).GetValueOrDefault();
+          return (_context.Courses?.Any(e => e.CourseId == id)).GetValueOrDefault();
         }
     }
 }

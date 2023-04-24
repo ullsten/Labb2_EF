@@ -12,15 +12,11 @@ namespace Labb2_EF.Models
         [Required]
         [StringLength(20)]
         [DisplayName("Class")]
-        public string ClassName { get; set; }
+        public string? ClassName { get; set; }
 
-        [ForeignKey("Students")]
         public virtual ICollection<Student>? Students { get; set; }
 
-        [ForeignKey("Teachers")]
         public virtual ICollection<Teacher>? Teachers { get; set; }
-
-        [ForeignKey("Courses")]
         public virtual ICollection<Course>? Courses { get; set; }
     }
 }

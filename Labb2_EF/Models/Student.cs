@@ -15,12 +15,12 @@ namespace Labb2_EF.Models
         [Required]
         [StringLength(50)]
         [DisplayName("First name")]
-        public string StudentFirstName { get; set; }
+        public string? StudentFirstName { get; set; }
 
         [Required]
         [StringLength(50)]
         [DisplayName("Last name")]
-        public string StudentLastName { get; set; }
+        public string? StudentLastName { get; set; }
 
         [DisplayName("Student")]
         public string StudentFullName => StudentFirstName + " " + StudentLastName;
@@ -78,7 +78,7 @@ namespace Labb2_EF.Models
         [DisplayName("Enrollment date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnrollmentDate { get; set; }
-
+        [ForeignKey("Addresses")]
         public int FK_AddressId { get; set; }
 
         public virtual ICollection<Teacher>? Teachers { get; set; }

@@ -22,20 +22,20 @@ namespace Labb2_EF.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-              return _context.Student != null ? 
-                          View(await _context.Student.ToListAsync()) :
+              return _context.Students != null ? 
+                          View(await _context.Students.ToListAsync()) :
                           Problem("Entity set 'SchoolDbContext.Student'  is null.");
         }
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Student == null)
+            if (id == null || _context.Students == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
@@ -56,7 +56,7 @@ namespace Labb2_EF.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,StudentFirstName,StudentLastName,Age,SSN,Gender,PhoneNumber,Email,EnrollmentDate,FK_AddressId")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,StudentFirstName,StudentLastName,PersonalNumber,PhoneNumber,Email,EnrollmentDate,FK_AddressId")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -71,12 +71,12 @@ namespace Labb2_EF.Controllers
         // GET: Students/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Student == null)
+            if (id == null || _context.Students == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
                 return NotFound();
@@ -89,7 +89,7 @@ namespace Labb2_EF.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("StudentId,StudentFirstName,StudentLastName,Age,SSN,Gender,PhoneNumber,Email,EnrollmentDate,FK_AddressId")] Student student)
+        public async Task<IActionResult> Edit(Guid id, [Bind("StudentId,StudentFirstName,StudentLastName,PersonalNumber,PhoneNumber,Email,EnrollmentDate,FK_AddressId")] Student student)
         {
             if (id != student.StudentId)
             {
@@ -122,12 +122,12 @@ namespace Labb2_EF.Controllers
         // GET: Students/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Student == null)
+            if (id == null || _context.Students == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
@@ -142,14 +142,14 @@ namespace Labb2_EF.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Student == null)
+            if (_context.Students == null)
             {
                 return Problem("Entity set 'SchoolDbContext.Student'  is null.");
             }
-            var student = await _context.Student.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
             if (student != null)
             {
-                _context.Student.Remove(student);
+                _context.Students.Remove(student);
             }
             
             await _context.SaveChangesAsync();
@@ -158,7 +158,7 @@ namespace Labb2_EF.Controllers
 
         private bool StudentExists(Guid id)
         {
-          return (_context.Student?.Any(e => e.StudentId == id)).GetValueOrDefault();
+          return (_context.Students?.Any(e => e.StudentId == id)).GetValueOrDefault();
         }
     }
 }

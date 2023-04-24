@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Labb2_EF.Models.JoinModels.TeacherCourse>
+
+@{
+    ViewData["Title"] = "GetTeacherCourse";
+}
+
+<h2>Search for a Course</h2>
+
+<form asp-action="GetTeacherCourse" method="get">
+    <div class="form-group">
+        @Html.Label("Search Course:")
+        @Html.DropDownList("searchCourse", ViewBag.FK_CourseId as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+    </div>
+</form>
+
+@if (Model == null)
+{
+    <p>Please select a course to see the teacher.</p>
+}
+else if (!Model.Any())
+{
+    <p>No results found.</p>
+}
+
+else
+{
+    <h3>Search Results</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Courses.CourseName)</th>
+                <th>@Html.DisplayNameFor(model => model.Teachers.TeacherFullName)</th>
+                <th>@Html.DisplayNameFor(model => model.Courses.CourseDescription)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var teacherCourse in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => teacherCourse.Courses.CourseName)</td>
+                    <td>@Html.DisplayFor(model => teacherCourse.Teachers.TeacherFullName)</td>
+                    <td>@Html.DisplayFor(model => teacherCourse.Courses.CourseDescription)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
