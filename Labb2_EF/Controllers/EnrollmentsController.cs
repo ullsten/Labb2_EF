@@ -54,7 +54,7 @@ namespace Labb2_EF.Controllers
             ViewData["FK_ClassId"] = new SelectList(_context.Classes, "ClassId", "ClassName");
             ViewData["FK_CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseName");
             ViewData["FK_StudentId"] = new SelectList(_context.Students, "StudentId", "StudentFullName");
-            ViewData["FK_TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherFullName");
+            //ViewData["FK_TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherFullName");
             return View();
         }
 
@@ -67,6 +67,15 @@ namespace Labb2_EF.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Get the teacher ID for the selected course
+                var teacherId = await _context.TeacherCourses
+                    .Where(tc => tc.FK_CourseId == enrollment.FK_CourseId)
+                    .Select(ct => ct.FK_TeacherId)
+                    .FirstOrDefaultAsync();
+
+                // Set the teacher ID for the enrollment
+                enrollment.FK_TeacherId = teacherId;
+
                 enrollment.EnrollmentId = Guid.NewGuid();
                 _context.Add(enrollment);
                 await _context.SaveChangesAsync();
@@ -78,6 +87,7 @@ namespace Labb2_EF.Controllers
             ViewData["FK_TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherFirstName", enrollment.FK_TeacherId);
             return View(enrollment);
         }
+
 
         // GET: Enrollments/Edit/5
         public async Task<IActionResult> Edit(Guid? id)

@@ -19,8 +19,8 @@ namespace Labb2_EF.Data
         public DbSet<Enrollment> Enrollments { get; set; } = default!;
         public DbSet<Address> Addresses { get; set; } 
 
-        public DbSet<Labb2_EF.Models.JoinModels.TeacherCourse> TeacherCourses { get; set; } = default!;
+        public DbSet<TeacherCourse> TeacherCourses { get; set; } = default!;
         public DbSet<StudentsTeachers> StudentsTeachers { get; set; } = default!;
-        public DbSet<Labb2_EF.Models.JoinModels.StudentCourse> StudentCourse { get; set; } = default!;
+        public DbSet<StudentsTeachersCourse> StudentTeachersCourses { get; set; } = default!;
     }
 }

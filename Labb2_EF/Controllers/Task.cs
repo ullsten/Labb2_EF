@@ -30,39 +30,39 @@ namespace Labb2_EF.Controllers
         {
             ViewBag.FK_CourseId = new SelectList(_context.Courses, "CourseName", "CourseName");
 
-            var schoolDbContext = _context.TeacherCourses
+            var teacherCourse = _context.TeacherCourses
                 .Include(t => t.Courses)
                 .Include(t => t.Teachers)
                 .Where(t => t.Courses.CourseName == searchCourse);
 
-            return View(await schoolDbContext.ToListAsync());
+            return View(await teacherCourse.ToListAsync());
         }
 
         //get all students with teachers
         public async Task<IActionResult> GetAllStudentsTeachers()
         {
-            //var studentsTeachers = _context.Enrollments
-            //    .Include(t => _context.Teachers)
-            //    .Include(t => t.Students);
+            var studentsTeachers = _context.Enrollments
+                .Include(e => e.Students)
+                .Include(e => e.Teachers)
+                .Include(e => e.Courses);
 
-            //return View(await studentsTeachers.ToListAsync());
-
-            var teachers = await _context.Teachers.ToListAsync();
-            var students = await _context.Students.ToListAsync();
-            var enrollment = await _context.Enrollments.ToListAsync();
-
-            var result = from t in teachers
-                         join e in enrollment on t.TeacherId equals e.FK_TeacherId
-                         join s in students on e.FK_StudentId equals s.StudentId
-                         select new StudentsTeachers
-                         {
-                             StudentId = s.StudentId,
-                             StudentFullName = s.StudentFullName,
-                             TeacherId = t.TeacherId,
-                             TeacherFullname = t.TeacherFullName,
-                         };
-
-            return View(result);
+            return View(await studentsTeachers.ToListAsync());
         }
+
+        //get all students in selected course
+        public async Task<IActionResult> GetStudentCourse(string selectedCourse)
+        {
+            ViewBag.FK_StudentId = new SelectList(_context.Courses, "CourseName", "CourseName");
+            var studentsTeachersCourse = _context.StudentTeachersCourses
+                .Include(sc => sc.Students)
+                .Include(sc => sc.Courses)
+                .Include(sc => sc.Teachers)
+                .Where(sc => sc.Courses.CourseName == selectedCourse);
+
+            return View(await studentsTeachersCourse.ToListAsync());
+                
+        }
+        //edit course name to something else
+        //Update students teacher in course
     }
 }

@@ -4,6 +4,7 @@ using Labb2_EF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb2_EF.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230424125555_editJoinModels")]
+    partial class editJoinModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,7 +208,7 @@ namespace Labb2_EF.Migrations
 
                     b.HasIndex("FK_TeacherId");
 
-                    b.ToTable("StudentTeachersCourses");
+                    b.ToTable("StudentCourse");
                 });
 
             modelBuilder.Entity("Labb2_EF.Models.JoinModels.TeacherCourse", b =>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Labb2_EF.Models.JoinModels.Enrollment>
+
+@{
+    ViewData["Title"] = "GetAllStudentsTeachers";
+}
+
+<h1>Students with teachers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Students.StudentFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teachers.TeacherFullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Students.StudentFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teachers.TeacherFullName)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
