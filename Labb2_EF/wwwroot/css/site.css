@@ -21,3 +21,8 @@ body {
   margin-bottom: 60px;
   background-color: darkorange;
 }
+.home{
+    margin-top: 2em;
+    height: 70vh;
+    background-image:url(/images/school_stuff.webp);
+}
