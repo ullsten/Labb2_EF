@@ -4,24 +4,23 @@
     ViewData["Title"] = "GetTeacherCourse";
 }
 
-<h2>Search for a Course</h2>
-
+<h2>Select course from list</h2>
+<p>You will see teachers and description for selected course.</p>
+<div class="row">
+    <div class="col-md-4">
 <form asp-action="GetTeacherCourse" method="get">
     <div class="form-group">
-        @Html.Label("Search Course:")
-        @Html.DropDownList("searchCourse", ViewBag.FK_CourseId as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                @Html.DropDownList("searchCourse", ViewBag.FK_CourseId as SelectList, "Labb2_EF course list", new { @class = "form-control", onchange = "this.form.submit();" })
     </div>
 </form>
-
-@if (Model == null)
+    </div>
+</div>
+<br />
+<br />
+@if (!Model.Any())
 {
     <p>Please select a course to see the teacher.</p>
 }
-else if (!Model.Any())
-{
-    <p>No results found.</p>
-}
-
 else
 {
     <h3>Search Results</h3>

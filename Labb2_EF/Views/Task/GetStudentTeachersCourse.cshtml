@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <form>
             <div class="form-group">
-                @Html.DropDownList("selectedCourse", ViewBag.FK_CourseId as SelectList, "select course", new { @class = "form-control", onchange = "this.form.submit();" })
+                @Html.DropDownList("selectedCourse", ViewBag.FK_CourseId as SelectList, "Labb2_EF course list", new { @class = "form-control", onchange = "this.form.submit();" })
             </div>
         </form>
     </div>
@@ -17,7 +17,7 @@
 
 <br />
 <br />
-@if (Model == null)
+@if (!Model.Any())
 {
     <p>Please select a course to see the teacher.</p>
 }

@@ -203,14 +203,14 @@ namespace Labb2_EF.Controllers
             {
                 _context.TeacherCourses.Remove(teacherCourse);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TeacherCourseExists(Guid id)
         {
-          return (_context.TeacherCourses?.Any(e => e.TeacherCourseId == id)).GetValueOrDefault();
+            return (_context.TeacherCourses?.Any(e => e.TeacherCourseId == id)).GetValueOrDefault();
         }
     }
 }
