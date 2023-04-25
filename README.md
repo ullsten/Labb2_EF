@@ -1,3 +1,5 @@
+Labb 2 – Linq
+
 # Vad du ska göra
 
 ### Sätta grunderna
