@@ -15,18 +15,22 @@ html {
 html {
   position: relative;
   min-height: 100%;
+
 }
 
 body {
-  margin-bottom: 60px;
-  background-color: darkorange;
+    margin-bottom: 60px;
+    background-color: darkorange;
 }
-.home{
+.home {
     margin-top: 2em;
     height: 70vh;
-    background-image:url(/images/success.jpg);
-    background-size:cover;
+    background-image: url(/images/success.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
 .Example-btn7 {
     font-family: Roboto, sans-serif;
     font-weight: 0;

@@ -17,6 +17,7 @@ namespace Labb2_EF
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>() //for roles
                 .AddEntityFrameworkStores<SchoolDbContext>();
             builder.Services.AddControllersWithViews();
 
