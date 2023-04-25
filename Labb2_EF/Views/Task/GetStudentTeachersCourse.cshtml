@@ -3,19 +3,20 @@
 @{
     ViewData["Title"] = "GetStudentTeachersCourse";
 }
-<h2>Select course from list</h2>
+<h2>School Lab2_EF</h2>
 <p>You will see students and teachers for selected course.</p>
 <div class="row">
     <div class="col-md-4">
         <form>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 @Html.DropDownList("selectedCourse", ViewBag.FK_CourseId as SelectList, "Labb2_EF course list", new { @class = "form-control", onchange = "this.form.submit();" })
             </div>
+            <a class="Example-btn7" asp-area=""
+               asp-controller="Task" asp-action="Index">Back to tasks</a>
         </form>
     </div>
 </div>
 
-<br />
 <br />
 @if (!Model.Any())
 {
@@ -24,6 +25,7 @@
 else
 {
     <h3>Search Results</h3>
+    <div class="bg-white bg-opacity-50 rounded">
     <table class="table">
         <thead>
             <tr>
@@ -43,4 +45,5 @@ else
             }
         </tbody>
     </table>
+    </div>
 }

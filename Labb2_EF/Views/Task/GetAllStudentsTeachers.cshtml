@@ -4,30 +4,40 @@
     ViewData["Title"] = "GetAllStudentsTeachers";
 }
 
-<h1>Students with teachers</h1>
+<h2>School Lab2_EF</h2>
+<h4>Students and teachers</h4>
+<div class="mt-3">
+<a class="Example-btn7" asp-area=""
+   asp-controller="Task" asp-action="Index">Back to tasks</a>
+</div>
+   <div class="mt-4 bg-white bg-opacity-50 rounded">
+    <table class="table mt-2">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Students.StudentFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Teachers.TeacherFullName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Students.StudentFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teachers.TeacherFullName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Students.StudentFullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teachers.TeacherFullName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Students.StudentFullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Teachers.TeacherFullName)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+   </div>

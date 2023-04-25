@@ -4,9 +4,11 @@
     ViewData["Title"] = "GetTeacherCourse";
 }
 
-<h2>Select course from list</h2>
+<h2>School Lab2EF</h2>
 <p>You will see teachers and description for selected course.</p>
-<div class="row">
+<a class="Example-btn7" asp-area=""
+   asp-controller="Task" asp-action="Index">Back to tasks</a>
+<div class="row mt-4">
     <div class="col-md-4">
 <form asp-action="GetTeacherCourse" method="get">
     <div class="form-group">
@@ -16,7 +18,6 @@
     </div>
 </div>
 <br />
-<br />
 @if (!Model.Any())
 {
     <p>Please select a course to see the teacher.</p>
@@ -24,6 +25,7 @@
 else
 {
     <h3>Search Results</h3>
+<div class="bg-white bg-opacity-50 rounded">
     <table class="table">
         <thead>
             <tr>
@@ -43,5 +45,6 @@ else
             }
         </tbody>
     </table>
+</div>
 }
 
